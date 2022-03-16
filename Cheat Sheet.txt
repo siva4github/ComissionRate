@@ -4,8 +4,11 @@
     ➜ dotnet new -l
 
     Create new API project
-    ➜  dotnet new webapi -n PMA.API
+    ➜  dotnet new webapi -n ComissionRateApi
 
+    Got ignore 
+    ➜  dotnet new gitignore
+    
     Update EF Tool
     ➜  dotnet tool update --global dotnet-ef 
 
@@ -18,7 +21,7 @@
 # Angular
 
     Create new angular project
-    ➜  ng new pma-ui
+    ➜  ng new comissionRate-ui
 
     To add bootstrap themes, Bootswatch
     ➜  npm install bootswatch

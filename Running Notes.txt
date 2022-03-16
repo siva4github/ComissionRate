@@ -6,3 +6,9 @@ type git to check status, it will say no git is available
 ➜  git remote add origin https://github.com/siva4github/ComissionRate.git
 ➜  git branch -M main
 ➜  git pull origin main
+Save Changes & Publish Changes
+
+Create new web api project, go to main folder 
+➜  dotnet new webapi -n ComissionRateApi
+Move to ComissionRateApi folder, and add .gitignore 
+➜  dotnet new gitignore

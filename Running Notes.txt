@@ -1,14 +1,47 @@
-Create Repository in github
-Create folder in local machine (ComissionRate)
-Open Folder in Visual Studio Code and open terminal (Ctrl + ~)
-type git to check status, it will say no git is available
-➜  git init
-➜  git remote add origin https://github.com/siva4github/ComissionRate.git
-➜  git branch -M main
-➜  git pull origin main
-Save Changes & Publish Changes
+Git Repository
+    Create Repository in github
+    Create folder in local machine (ComissionRate)
+    Open Folder in Visual Studio Code and open terminal (Ctrl + ~)
+    type git to check status, it will say no git is available
+        ➜  git init
+        ➜  git remote add origin https://github.com/siva4github/ComissionRate.git
+        ➜  git branch -M main
+        ➜  git pull origin main
+    Save Changes & Publish Changes
 
 Create new web api project, go to main folder 
-➜  dotnet new webapi -n ComissionRateApi
-Move to ComissionRateApi folder, and add .gitignore 
-➜  dotnet new gitignore
+        ➜  dotnet new webapi -n ComissionRateApi
+    Move to ComissionRateApi folder, and add .gitignore 
+        ➜  dotnet new gitignore
+    Create BaseApiController with default values
+    Create CustomerController with reference BaseApiController
+    Create Customer and Order Entities
+
+Add Nuget Packages for EntityFramework
+    Press Ctrl + Shift and select Nuget Package Manager
+    Find Microsoft.EntityFrameworkCore.SqlServer and Microsoft.EntityFrameworkCore.Design - install
+
+Add DataContext and add DbSet<Customer> and <Order>
+    Create Extention Folder and Add ApplicationServiceExtension and configure database, register it in Program.cs
+    Generate Migrations to create database and tables
+    Before generation of Migrations, check dotnet ef tool is installed and updated to latest version
+    To install
+        ➜  dotnet tool install --global dotnet-ef
+
+Create Migrations
+        ➜  dotnet ef migrations add CustomerAndOrderAdded
+    To Update Migrations to DB, two options either run command and use context.Migrate in code
+    To run through command 
+        ➜  dotnet ef database update
+    Alternate will write some seed file and write code so whenever project runs first it will migrate the migrations first
+    below line in Program.cs, will take care of running migrations and seed
+    await ComissionRateApi.Data.MigrateAndSeed.ProcessMigrationsAndSeedAsync(scope.ServiceProvider);
+
+Repositories
+    Create Interface and Its Implementation for Customer Repo and Order Repo
+    Dependency Injection these Interface so we can use them in controllers, Register these in ApplicationServiceExtensions.cs
+    Never return actual entities, always use Dtos
+    And use AutoMapper to map between entities and dtos, so add AutoMapper.Extensions.Microsoft.DependencyInjection
+    Configure Automapper, Add another extension and register it in Program.cs
+    Create Mapping Profiles in Profiles folder
+    Implement Customer and Order Repo and register these two in ApplicationServiceExtensions

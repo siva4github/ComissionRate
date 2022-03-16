@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "8d12ba0b-c0a7-4c08-b56d-e9e487c8fd50",
+		"name": "ComissionRate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host5000}}/api/orders",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orderDate\": \"2022-03-16T18:34:30.486Z\",\r\n  \"requiredDate\": \"2022-03-16T18:34:30.486Z\",\r\n  \"shipName\": \"Charger\",\r\n  \"shipAddress\": \"Add1\",\r\n  \"shipCity\": \"City1\",\r\n  \"shipRegion\": \"Region1\",\r\n  \"shipPostalCode\": \"75024\",\r\n  \"shipCountry\": \"US\",\r\n  \"customerId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host5000}}/api/orders",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host5000}}/api/orders/1",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order By Ship Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host5000}}/api/Orders/OrdersBy/lap",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"Orders",
+								"OrdersBy",
+								"lap"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderDate\": \"2022-03-16T18:39:01.765Z\",\r\n    \"requiredDate\": \"2022-03-16T18:39:01.765Z\",\r\n    \"shipName\": \"Laptops1\",\r\n    \"customerId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host5000}}/api/orders/1",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host5000}}/api/customers",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host5000}}/api/customers/1",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host5000}}/api/customers/customersby/han",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"customersby",
+								"han"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hanuman1\",\r\n    \"companyName\": \"ABC\",\r\n    \"address\": \"Address1\",\r\n    \"city\": \"City1\",\r\n    \"region\": \"US\",\r\n    \"postalCode\": \"75012\",\r\n    \"country\": \"US\",\r\n    \"phone\": \"+1(123)-1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host5000}}/api/customers/1",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hanuman\",\r\n    \"companyName\": \"ABC\",\r\n    \"address\": \"Address1\",\r\n    \"city\": \"City1\",\r\n    \"region\": \"US\",\r\n    \"postalCode\": \"75012\",\r\n    \"country\": \"US\",\r\n    \"phone\": \"+1(123)-1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host5000}}/api/customers",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customers With Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host5000}}/api/customers/customerswithorders",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"customerswithorders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

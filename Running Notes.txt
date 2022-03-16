@@ -1,0 +1,8 @@
+Create Repository in github
+Create folder in local machine (ComissionRate)
+Open Folder in Visual Studio Code and open terminal (Ctrl + ~)
+type git to check status, it will say no git is available
+➜  git init
+➜  git remote add origin https://github.com/siva4github/ComissionRate.git
+➜  git branch -M main
+➜  git pull origin main

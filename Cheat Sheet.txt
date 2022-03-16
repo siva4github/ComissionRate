@@ -1,0 +1,39 @@
+# .Net
+
+    Get list of projects for
+    ➜ dotnet new -l
+
+    Create new API project
+    ➜  dotnet new webapi -n PMA.API
+
+    Update EF Tool
+    ➜  dotnet tool update --global dotnet-ef 
+
+    Geberate Migrations
+    ➜  dotnet ef migrations add UserRolesAdded
+
+    Update Database
+    ➜  dotnet ef database update
+
+# Angular
+
+    Create new angular project
+    ➜  ng new pma-ui
+
+    To add bootstrap themes, Bootswatch
+    ➜  npm install bootswatch
+
+    Bootstrap components without JS
+    ➜  ng add ngx-bootstrap  
+
+    Loading spinner
+    ➜  npm i ngx-spinner
+
+    Add Font-awesome
+    ➜  npm install font-awesome
+
+    Add toastr service for notifications
+    ➜  npm i ngx-toastr
+
+    Time ago pipe
+    ➜  npm install ngx-timeago --save

@@ -1,6 +1,8 @@
 using AutoMapper;
 using ComissionRateApi.Dtos;
 using ComissionRateApi.Entities;
+using ComissionRateApi.Extensions;
+using ComissionRateApi.Helpers.Params;
 using ComissionRateApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,15 +22,16 @@ public class OrdersController : BaseApiController
 
     // GET: api/Orders
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<OrderReadDto>>> GetOrders()
+    public async Task<ActionResult<IEnumerable<OrderReadDto>>> GetOrders([FromQuery]OrderParams orderParams)
     {
-        var orders = await _orderRepo.OrdersAsync();
+        var orders = await _orderRepo.OrdersAsync(orderParams);
 
         if (orders == null)
         {
             return NotFound();
         }
 
+        Response.AddPaginationHeader(orders.CurrentPage, orders.PageSize, orders.TotalCount, orders.TotalPages);
         return Ok(orders);
     }
 
@@ -51,6 +54,20 @@ public class OrdersController : BaseApiController
     public async Task<ActionResult<IEnumerable<CustomerReadDto>>> GetOrdersByName(string shipName)
     {
         var orders = await _orderRepo.OrderAsync(shipName);
+
+        if (orders == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(orders);
+    }
+
+    // GET: api/Orders/laptop
+    [HttpGet("OrdersByCustomerId/{id}")]
+    public async Task<ActionResult<IEnumerable<CustomerReadDto>>> GetOrdersByCustomer(int id)
+    {
+        var orders = await _orderRepo.OrderByCustomerAsync(id);
 
         if (orders == null)
         {
@@ -84,9 +101,9 @@ public class OrdersController : BaseApiController
         return BadRequest("Failed to update order");
     }
 
-    // POST: api/customers
+    // POST: api/orders
     [HttpPost]
-    public async Task<IActionResult> CreateCustomer(OrderCreateDto orderDto)
+    public async Task<IActionResult> CreateOrder(OrderCreateDto orderDto)
     {
 
         var actualCustomer = await _customerRepo.CustomerAsync(orderDto.CustomerId);

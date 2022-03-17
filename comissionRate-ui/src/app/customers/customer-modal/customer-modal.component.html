@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{mode | titlecase }} Customer</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]='customerForm'>
+        <div>
+            <div class="row">
+                <div class="col-4">Name</div>
+                <div class="col-8"> 
+                    <app-text-input [formControlName]="'name'" [label]='"Name"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">Company Name</div>
+                <div class="col-8">
+                    <app-text-input [formControlName]="'companyName'" [label]='"Company Name"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">Address</div>
+                <div class="col-8">
+                    <app-text-input [formControlName]="'address'" [label]='"Address"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">City</div>
+                <div class="col-8">
+                    <app-text-input [formControlName]="'city'" [label]='"City"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">Region</div>
+                <div class="col-8">
+                    <app-text-input [formControlName]="'region'" [label]='"Region"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">Postal Code</div>
+                <div class="col-8">
+                    <app-text-input [formControlName]="'postalCode'" [label]='"Postal Code"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">Country</div>
+                <div class="col-8">
+                    <app-text-input [formControlName]="'country'" [label]='"Country"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">Phone</div>
+                <div class="col-8">
+                    <app-text-input [formControlName]="'phone'" [label]='"Phone"' ></app-text-input>
+                </div>
+            </div>
+        </div>        
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light btn-sm" (click)="bsModalRef.hide()">Close</button>
+    <button type="submit" class="btn btn-warning btn-sm" [disabled]="!customerForm.valid" (click)="customerAction()">{{mode | titlecase }}</button>
+</div>

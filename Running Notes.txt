@@ -45,3 +45,27 @@ Repositories
     Configure Automapper, Add another extension and register it in Program.cs
     Create Mapping Profiles in Profiles folder
     Implement Customer and Order Repo and register these two in ApplicationServiceExtensions
+
+
+    UI
+        Create UI Project
+            ➜  ng new comissionRate-ui
+        Create components
+            ➜  ng g c nav --skip-tests  
+            ➜  ng g c home --skip-tests
+            ➜  ng g c orders --skip-tests
+            ➜  ng g c customers --skip-tests
+        Update routes in route module
+        Add bootstrap
+            ➜  npm install bootstrap
+        Add Bootswatch for theme
+            ➜  npm install bootswatch
+        Bootstrap components without JS
+            ➜  ng add ngx-bootstrap
+        Add Customer and Order Services
+        Add toastr service for notifications
+            ➜  npm i ngx-toastr
+        Add Error Interceptor to show error message
+            ➜  ng g interceptor error --skip-tests
+        Added Spinner and Busy Service to show loading
+            ➜  npm i ngx-spinner

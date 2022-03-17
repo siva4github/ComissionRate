@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h4 class="modal-title"> {{customer.name}} - Orders</h4>
+</div>
+<div class="modal-body">
+    <div class="row table-responsive" *ngIf="orders!=null && orders.length > 0">
+        <table class="table table-sm align-middle">
+            <thead>
+                <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Required Date</th>
+                    <th scope="col">Shipment Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Region</th>
+                    <th scope="col">Postal Code</th>
+                    <th scope="col">Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders">
+                    <!-- <th scope="row">{{customer?.id}}</th> -->
+                    <td> {{order?.orderDate + 'Z'}} </td>
+                    <td> {{order?.requiredDate + 'Z'}} </td>
+                    <td> {{order?.shipName}} </td>
+                    <td> {{order?.shipAddress}} </td>
+                    <td> {{order?.shipCity }} </td>
+                    <td> {{order?.shipRegion}} </td>
+                    <td> {{order?.shipPostalCode}} </td>
+                    <td> {{order?.shipCountry}} </td>
+                </tr>
+            </tbody>
+        </table>        
+    </div>
+    <div *ngIf="orders?.length === 0">
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-danger">
+              <strong>0 records! </strong> &nbsp;&nbsp; <a href="#" (click)="false" class="alert-link">Change a few things up</a> and try submitting again.
+            </div>     
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light btn-sm" (click)="bsModalRef.hide()">Close</button>    
+</div>

@@ -2,6 +2,8 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using ComissionRateApi.Dtos;
 using ComissionRateApi.Entities;
+using ComissionRateApi.Helpers;
+using ComissionRateApi.Helpers.Params;
 using ComissionRateApi.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,11 +30,22 @@ public class OrderRepo : IOrderRepo
         await _context.Orders.AddAsync(order);
     }
 
-    public async Task<IEnumerable<OrderReadDto>> OrdersAsync()
+    public async Task<PagedList<OrderReadDto>> OrdersAsync(OrderParams orderParams)
     {
-        return await _context.Orders
-            .ProjectTo<OrderReadDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+        var query = _context.Orders.AsQueryable();
+
+        query = orderParams.OrderBy switch
+        {
+            "shipName" => query.OrderBy(o => o.ShipName),
+            _=> query.OrderByDescending(o => o.OrderDate)
+        };
+
+        return await PagedList<OrderReadDto>.CreateAsync(query.ProjectTo<OrderReadDto>(_mapper.ConfigurationProvider)
+            .AsNoTracking(), orderParams.PageNumber, orderParams.PageSize);
+
+        // return await _context.Orders
+        //     .ProjectTo<OrderReadDto>(_mapper.ConfigurationProvider)
+        //     .ToListAsync();
     }
 
     public async Task<OrderReadDto> OrderAsync(int id)
@@ -54,5 +67,13 @@ public class OrderRepo : IOrderRepo
     public void Update(Order order)
     {
         _context.Entry(order).State = EntityState.Modified;
+    }
+
+    public async Task<IEnumerable<OrderReadDto>> OrderByCustomerAsync(int id)
+    {
+        return await _context.Orders
+            .Where(o => o.CustomerId == id)
+            .ProjectTo<OrderReadDto>(_mapper.ConfigurationProvider)
+            .ToListAsync();
     }
 }

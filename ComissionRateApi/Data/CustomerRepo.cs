@@ -2,6 +2,8 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using ComissionRateApi.Dtos;
 using ComissionRateApi.Entities;
+using ComissionRateApi.Helpers;
+using ComissionRateApi.Helpers.Params;
 using ComissionRateApi.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,11 +46,22 @@ public class CustomerRepo : ICustomerRepo
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<CustomerReadDto>> CustomersAsync()
+    public async Task<PagedList<CustomerReadDto>> CustomersAsync(CustomerParams customerParams)
     {
-        return await _context.Customers
-            .ProjectTo<CustomerReadDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+        var query = _context.Customers.AsQueryable();
+
+        query = customerParams.OrderBy switch
+        {
+            "companyName" => query.OrderBy(c => c.CompanyName),
+            _=> query.OrderBy(c => c.Name)
+        };
+
+        return await PagedList<CustomerReadDto>.CreateAsync(query.ProjectTo<CustomerReadDto>(_mapper.ConfigurationProvider)
+            .AsNoTracking(), customerParams.PageNumber, customerParams.PageSize);
+
+        // return await _context.Customers
+        //     .ProjectTo<CustomerReadDto>(_mapper.ConfigurationProvider)
+        //     .ToListAsync();
     }
 
     public async Task<IEnumerable<CustomerWithOrdersReadDto>> CustomersWithOrdersAsync()

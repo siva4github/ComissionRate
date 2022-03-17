@@ -1,6 +1,8 @@
 using AutoMapper;
 using ComissionRateApi.Dtos;
 using ComissionRateApi.Entities;
+using ComissionRateApi.Extensions;
+using ComissionRateApi.Helpers.Params;
 using ComissionRateApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,14 +20,16 @@ public class CustomersController : BaseApiController
 
     // GET: api/Customers
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CustomerReadDto>>> GetCustomers()
+    public async Task<ActionResult<IEnumerable<CustomerReadDto>>> GetCustomers([FromQuery]CustomerParams customerParams)
     {
-        var customers = await _customerRepo.CustomersAsync();
+        var customers = await _customerRepo.CustomersAsync(customerParams);
 
         if (customers == null)
         {
             return NotFound();
         }
+
+        Response.AddPaginationHeader(customers.CurrentPage, customers.PageSize, customers.TotalCount, customers.TotalPages);
 
         return Ok(customers);
     }
@@ -101,7 +105,7 @@ public class CustomersController : BaseApiController
         await _customerRepo.CreateAsync(customer);
 
         if (await _customerRepo.CompleteAsync()) 
-                return Ok("Customer added successfully");
+            return Ok();
 
         return BadRequest("Failed to create a new customer");
     }

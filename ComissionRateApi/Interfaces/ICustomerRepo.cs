@@ -1,11 +1,13 @@
 using ComissionRateApi.Dtos;
 using ComissionRateApi.Entities;
+using ComissionRateApi.Helpers;
+using ComissionRateApi.Helpers.Params;
 
 namespace ComissionRateApi.Interfaces;
 
 public interface ICustomerRepo
 {
-    Task<IEnumerable<CustomerReadDto>> CustomersAsync();
+    Task<PagedList<CustomerReadDto>> CustomersAsync(CustomerParams customerParams);
     Task<IEnumerable<CustomerWithOrdersReadDto>> CustomersWithOrdersAsync();
     Task CreateAsync(Customer customer);
     void Update(Customer customer);

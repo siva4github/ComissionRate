@@ -33,7 +33,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"orderDate\": \"2022-03-16T18:34:30.486Z\",\r\n  \"requiredDate\": \"2022-03-16T18:34:30.486Z\",\r\n  \"shipName\": \"Charger\",\r\n  \"shipAddress\": \"Add1\",\r\n  \"shipCity\": \"City1\",\r\n  \"shipRegion\": \"Region1\",\r\n  \"shipPostalCode\": \"75024\",\r\n  \"shipCountry\": \"US\",\r\n  \"customerId\": 2\r\n}",
+							"raw": "{\r\n  \"orderDate\": \"2022-03-16T18:34:30.486Z\",\r\n  \"requiredDate\": \"2022-03-16T18:34:30.486Z\",\r\n  \"shipName\": \"12Charger12\",\r\n  \"shipAddress\": \"Add1\",\r\n  \"shipCity\": \"City1\",\r\n  \"shipRegion\": \"Region1\",\r\n  \"shipPostalCode\": \"75024\",\r\n  \"shipCountry\": \"US\",\r\n  \"customerId\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -67,6 +67,26 @@
 								"api",
 								"orders",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order By Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host5000}}/api/Orders/OrdersByCustomerId/2",
+							"host": [
+								"{{host5000}}"
+							],
+							"path": [
+								"api",
+								"Orders",
+								"OrdersByCustomerId",
+								"2"
 							]
 						}
 					},
@@ -217,7 +237,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Hanuman\",\r\n    \"companyName\": \"ABC\",\r\n    \"address\": \"Address1\",\r\n    \"city\": \"City1\",\r\n    \"region\": \"US\",\r\n    \"postalCode\": \"75012\",\r\n    \"country\": \"US\",\r\n    \"phone\": \"+1(123)-1234\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Hanuman3\",\r\n    \"companyName\": \"ABC\",\r\n    \"address\": \"Address1\",\r\n    \"city\": \"City1\",\r\n    \"region\": \"US\",\r\n    \"postalCode\": \"75012\",\r\n    \"country\": \"US\",\r\n    \"phone\": \"+1(123)-1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

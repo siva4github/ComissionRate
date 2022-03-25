@@ -19,11 +19,6 @@ public class OrderRepo : IOrderRepo
         _context = context;
     }
 
-    public async Task<bool> CompleteAsync()
-    {
-        return await _context.SaveChangesAsync() > 0;
-    }
-
     public async Task CreateAsync(Order order)
     {
         if(order == null) throw new ArgumentNullException(nameof(order));
@@ -63,12 +58,6 @@ public class OrderRepo : IOrderRepo
             .ProjectTo<OrderReadDto>(_mapper.ConfigurationProvider)
             .ToListAsync();
     }
-
-    public void Update(Order order)
-    {
-        _context.Entry(order).State = EntityState.Modified;
-    }
-
     public async Task<IEnumerable<OrderReadDto>> OrderByCustomerAsync(int id)
     {
         return await _context.Orders

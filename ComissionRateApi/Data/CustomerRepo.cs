@@ -19,11 +19,6 @@ public class CustomerRepo : ICustomerRepo
         _context = context;
     }
 
-    public async Task<bool> CompleteAsync()
-    {
-        return await _context.SaveChangesAsync() > 0;
-    }
-
     public async Task CreateAsync(Customer customer)
     {
         if(customer == null) throw new ArgumentNullException(nameof(customer));
@@ -78,10 +73,5 @@ public class CustomerRepo : ICustomerRepo
         if(customer == null) return false;
 
         return true;
-    }
-
-    public void Update(Customer customer)
-    {
-        _context.Entry(customer).State = EntityState.Modified;
     }
 }

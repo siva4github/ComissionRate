@@ -17,8 +17,10 @@ public static class ApplicationServiceExtensions
             options.UseSqlServer(configuration.GetConnectionString("ComissionRateDB"));
         });
 
-        services.AddScoped<ICustomerRepo, CustomerRepo>();
-        services.AddScoped<IOrderRepo, OrderRepo>();
+        // services.AddScoped<ICustomerRepo, CustomerRepo>();
+        // services.AddScoped<IOrderRepo, OrderRepo>();
+        // services.AddScoped<ICompanyRepo, CompanyRepo>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         return services;
     }

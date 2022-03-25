@@ -10,19 +10,19 @@ namespace ComissionRateApi.Controllers;
 
 public class CustomersController : BaseApiController
 {
-    private readonly ICustomerRepo _customerRepo;
     private readonly IMapper _mapper;
-    public CustomersController(ICustomerRepo customerRepo, IMapper mapper)
+    private readonly IUnitOfWork _unitOfWork;
+    public CustomersController(IMapper mapper, IUnitOfWork unitOfWork)
     {
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
-        _customerRepo = customerRepo;
     }
 
     // GET: api/Customers
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CustomerReadDto>>> GetCustomers([FromQuery]CustomerParams customerParams)
+    public async Task<ActionResult<IEnumerable<CustomerReadDto>>> GetCustomers([FromQuery] CustomerParams customerParams)
     {
-        var customers = await _customerRepo.CustomersAsync(customerParams);
+        var customers = await _unitOfWork.CustomerRepo.CustomersAsync(customerParams);
 
         if (customers == null)
         {
@@ -38,7 +38,7 @@ public class CustomersController : BaseApiController
     [HttpGet("CustomersWithOrders")]
     public async Task<ActionResult<IEnumerable<CustomerWithOrdersReadDto>>> GetCustomersWithOrders()
     {
-        var customers = await _customerRepo.CustomersWithOrdersAsync();
+        var customers = await _unitOfWork.CustomerRepo.CustomersWithOrdersAsync();
 
         if (customers == null)
         {
@@ -52,7 +52,7 @@ public class CustomersController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<CustomerReadDto>> GetCustomerById(int id)
     {
-        var customer = await _customerRepo.CustomerAsync(id);
+        var customer = await _unitOfWork.CustomerRepo.CustomerAsync(id);
 
         if (customer == null)
         {
@@ -66,7 +66,7 @@ public class CustomersController : BaseApiController
     [HttpGet("CustomersBy/{name}")]
     public async Task<ActionResult<IEnumerable<CustomerReadDto>>> GetCustomersByName(string name)
     {
-        var customers = await _customerRepo.CustomerAsync(name);
+        var customers = await _unitOfWork.CustomerRepo.CustomerAsync(name);
 
         if (customers == null)
         {
@@ -80,15 +80,15 @@ public class CustomersController : BaseApiController
     [HttpPut("{id}")]
     public async Task<IActionResult> PutCustomer(int id, CustomerUpdateDto customerDto)
     {
-        var actualCustomer = await _customerRepo.CustomerAsync(id);
+        var actualCustomer = await _unitOfWork.CustomerRepo.CustomerAsync(id);
 
         if (actualCustomer == null) return BadRequest("Customer not found with id " + id);
 
         var customer = _mapper.Map<Customer>(customerDto);
         customer.Id = id;
 
-        _customerRepo.Update(customer);
-        if(await _customerRepo.CompleteAsync()) return NoContent();
+        _unitOfWork.Update(customer);
+        if (await _unitOfWork.CompleteAsync()) return NoContent();
 
         return BadRequest("Failed to update customer");
     }
@@ -97,14 +97,14 @@ public class CustomersController : BaseApiController
     [HttpPost]
     public async Task<IActionResult> CreateCustomer(CustomerCreateDto customerDto)
     {
-        if(await _customerRepo.IsExistAsync(customerDto.Name, customerDto.CompanyName))
-        return BadRequest($"Customer already exists with name: {customerDto.Name}, company name: {customerDto.CompanyName}");
+        if (await _unitOfWork.CustomerRepo.IsExistAsync(customerDto.Name, customerDto.CompanyName))
+            return BadRequest($"Customer already exists with name: {customerDto.Name}, company name: {customerDto.CompanyName}");
 
         var customer = _mapper.Map<Customer>(customerDto);
 
-        await _customerRepo.CreateAsync(customer);
+        await _unitOfWork.CustomerRepo.CreateAsync(customer);
 
-        if (await _customerRepo.CompleteAsync()) 
+        if (await _unitOfWork.CompleteAsync())
             return Ok();
 
         return BadRequest("Failed to create a new customer");

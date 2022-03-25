@@ -9,10 +9,8 @@ public interface IOrderRepo
 {
     Task<PagedList<OrderReadDto>> OrdersAsync(OrderParams orderParams);
     Task CreateAsync(Order order);
-    void Update(Order order);
     Task<OrderReadDto> OrderAsync(int id);
     Task<IEnumerable<OrderReadDto>> OrderAsync(string shipName);
     Task<IEnumerable<OrderReadDto>> OrderByCustomerAsync(int id);
-    Task<bool> CompleteAsync();
 
 }

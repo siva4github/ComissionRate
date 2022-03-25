@@ -10,6 +10,9 @@ public static class AutoMapperExtensions
 
            configuration.AddProfile<CustomerMappingProfile>(); 
            configuration.AddProfile<OrderMappingProfile>(); 
+           configuration.AddProfile<CompanyMappingProfile>();
+           configuration.AddProfile<DistributionMappingProfile>();
+           configuration.AddProfile<ProductMappingProfile>();
         });
 
         return services;

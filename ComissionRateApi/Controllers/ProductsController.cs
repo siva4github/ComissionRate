@@ -1,6 +1,8 @@
 using AutoMapper;
 using ComissionRateApi.Dtos;
 using ComissionRateApi.Entities;
+using ComissionRateApi.Extensions;
+using ComissionRateApi.Helpers.Params;
 using ComissionRateApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,15 +20,16 @@ public class ProductsController : BaseApiController
 
     // GET: api/Products
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetProducts()
+    public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetProducts([FromQuery] ProductParams productParams)
     {
-        var products = await _unitOfWork.ProductRepo.ProductsAsync();
+        var products = await _unitOfWork.ProductRepo.ProductsAsync(productParams);
 
         if (products == null)
         {
             return NotFound();
         }
 
+        Response.AddPaginationHeader(products.CurrentPage, products.PageSize, products.TotalCount, products.TotalPages);
         return Ok(products);
     }
 

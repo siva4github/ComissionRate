@@ -26,12 +26,6 @@ public class DistributionRepo : IDistributionRepo
              
     }
 
-    public async Task CreateAsync(Distribution distribution)
-    {
-        if(distribution == null) throw new ArgumentNullException(nameof(distribution));
-        await _context.Distributions.AddAsync(distribution);
-    }
-
     public async Task<bool> IsExistAsync(string name)
     {
        var customer = await _context.Distributions.Where(c => c.Name == name).FirstOrDefaultAsync();
@@ -39,6 +33,12 @@ public class DistributionRepo : IDistributionRepo
         if(customer == null) return false;
 
         return true;
+    }
+
+    public async Task CreateAsync(Distribution distribution)
+    {
+        if(distribution == null) throw new ArgumentNullException(nameof(distribution));
+        await _context.Distributions.AddAsync(distribution);
     }
 
     public async Task<IEnumerable<DistributionReadDto>> DistributionsByAsync(int companyId)

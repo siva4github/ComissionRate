@@ -29,18 +29,24 @@ public class ProductRepo : IProductRepo
     {
         var query = _context.Products.AsQueryable();
 
+        if(productParams.DistributionId!=0)
+        {
+            query = query.Where(p => p.DistributionId == productParams.DistributionId);
+        }
+        else if(productParams.CompanyId!=0)
+        {
+            query = query.Where(p => p.Distribution.CompanyId == productParams.CompanyId);
+        }
+
         query = productParams.OrderBy switch
         {
+            "location" => query.OrderBy(p => p.Location),
             "code" => query.OrderBy(p => p.Code),
             _=> query.OrderBy(p => p.Name)
         };
 
         return await PagedList<ProductReadDto>.CreateAsync(query.ProjectTo<ProductReadDto>(_mapper.ConfigurationProvider)
             .AsNoTracking(), productParams.PageNumber, productParams.PageSize);
-
-        // return await _context.Products
-        //     .ProjectTo<ProductReadDto>(_mapper.ConfigurationProvider)
-        //     .ToListAsync();
     }
 
     public async Task<IEnumerable<ProductReadDto>> ProductsAsync()

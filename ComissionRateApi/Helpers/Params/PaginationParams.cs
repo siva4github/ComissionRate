@@ -3,7 +3,7 @@ namespace ComissionRateApi.Helpers.Params;
 public class PaginationParams
 {
     private const int MaxPageSize = 50;
-    private int _pageSize = 10;
+    private int _pageSize = 5;
     public int PageSize
     {
         get => _pageSize;

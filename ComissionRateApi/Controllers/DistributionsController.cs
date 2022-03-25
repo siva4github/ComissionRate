@@ -30,6 +30,19 @@ public class DistributionsController : BaseApiController
         return Ok(distributions);
     }
 
+    [HttpGet("{companyId}")]
+    public async Task<ActionResult<IEnumerable<DistributionReadDto>>> GetDistributionsFor(int companyId)
+    {
+        var distributions = await _unitOfWork.DistributionRepo.DistributionsByAsync(companyId);
+
+        if (distributions == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(distributions);
+    }
+
     // POST: api/Distributions
     [HttpPost]
     public async Task<IActionResult> CreateDistributionAsync(DistributionCreateDto distributionDto)

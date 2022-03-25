@@ -19,6 +19,7 @@ import { CustomerModalComponent } from './customers/customer-modal/customer-moda
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { OrderModalComponent } from './customers/order-modal/order-modal.component';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { OrderModalComponent } from './customers/order-modal/order-modal.compone
     NavComponent,
     CustomerModalComponent,
     TextInputComponent,
-    OrderModalComponent
+    OrderModalComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,

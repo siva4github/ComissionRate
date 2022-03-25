@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="row">
+        &nbsp;
+    </div>
+    <div class="row">
+        <div class="row">
+            <form class="row d-flex mt-4" [formGroup]='prdForm' autocomplete="off">
+                <div class="col-auto">
+                    <select [formControlName]="'company'" class="form-control form-control-sm" (change)="onCompanySelected()">
+                        <option value="0" selected>Select Company</option>
+                        <option *ngFor="let company of companies" [value]="company?.id">{{company?.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <select [formControlName]="'distribution'" class="form-control form-control-sm">
+                        <option value="0" selected>Select Distribution</option>
+                        <option *ngFor="let distribution of distributions" [value]="distribution?.id">{{distribution?.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <select [formControlName]="'orderBy'" class="form-control form-control-sm">
+                        <option value="0" selected>Order By</option>
+                        <option *ngFor="let order of prdOrderByArray" [value]="order">{{order}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <select [formControlName]="'pageSize'" class="form-control form-control-sm">
+                        <option value="0" disabled selected>Records</option>
+                        <option *ngFor="let pageSize of pageSizeArray" [value]="pageSize">{{pageSize}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                </div>
+                <div class="col-auto"> &nbsp;
+                    <button type="submit" class="btn btn-sm btn-danger me-2" (click)="applyFilter()">Apply Filter</button>
+                    <button type="submit" class="btn btn-sm btn-warning" (click)="resetFilter()">Reset Filter</button>
+                </div>
+                <div class="col d-grid d-md-flex justify-content-end">
+                    <button type="submit" class="btn btn-info btn-sm" (click)="createProduct()">Add Product</button>
+                    <button type="submit" class="btn btn-info btn-sm ms-2" (click)="createProduct()">Add Distribution</button>
+                    <button type="submit" class="btn btn-info btn-sm ms-2" (click)="createProduct()">Add Company</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row" *ngIf="products!=null && products.length > 0">
+        <table class="table table-responsive table-sm align-middle">
+            <thead>
+                <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Company Name</th>
+                    <th scope="col">Distribution Name</th>
+                    <th scope="col">&nbsp;</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <!-- <th scope="row">{{product?.id}}</th> -->
+                    <td> {{product?.name}} </td>
+                    <td> {{product?.location}} </td>
+                    <td> {{product?.code}} </td>
+                    <td> {{product?.companyName }} </td>
+                    <td> {{product?.distributionName}} </td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-warning button" (click)="editProduct(product!)">Edit Product</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center" *ngIf="pagination">
+            <pagination class="pagination" [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+                [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                lastText="&raquo;">
+            </pagination>
+        </div>  
+    </div>
+    <div *ngIf="products?.length === 0">
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-danger">
+              <strong>0 records! </strong> &nbsp;&nbsp; <a href="#" (click)="false" class="alert-link">Change a few things up</a> and try submitting again.
+            </div>     
+    </div>
+</div>

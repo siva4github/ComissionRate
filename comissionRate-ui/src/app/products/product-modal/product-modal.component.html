@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{mode | titlecase }} Customer</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]='productForm'>
+        <div>
+            <div class="row">
+                <div class="col-4">Name</div>
+                <div class="col-8"> 
+                    <app-text-input [formControlName]="'name'" [label]='"Name"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">Location</div>
+                <div class="col-8">
+                    <app-text-input [formControlName]="'location'" [label]='"Location"' [type]='"number"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">Code</div>
+                <div class="col-8">
+                    <app-text-input [formControlName]="'code'" [label]='"Code"' ></app-text-input>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-4">Company</div>
+                <div class="col-8">
+                    <select [formControlName]="'company'" placeholder="Company" class="form-select form-select-sm"
+                    [class.is-invalid]="getFormControl('company')?.touched && getFormControl('company')?.invalid" 
+                    [class.is-valid]="getFormControl('company')?.valid" (change)="onCompanySelected()">
+                        <option value="" selected>Select Company</option>
+                        <option *ngFor="let company of companies" [value]="company?.id">{{company?.name}}
+                        </option>
+                    </select>
+                    <div class="invalid-feedback" *ngIf="getFormControl('company')?.errors?.['required']">Please Select Company</div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-4">Distribution</div>
+                <div class="col-8">
+                    <select [formControlName]="'distribution'" placeholder="Distribution" class="form-select form-select-sm"
+                    [class.is-invalid]="getFormControl('distribution')?.touched && getFormControl('distribution')?.invalid" 
+                    [class.is-valid]="getFormControl('distribution')?.valid">
+                        <option value="" selected>Select Distribution</option>
+                        <option *ngFor="let distribution of distributions" [value]="distribution?.id">{{distribution?.name}}
+                        </option>
+                    </select>
+                    <div class="invalid-feedback" *ngIf="getFormControl('distribution')?.errors?.['required']">Please Select Distribution</div>
+                </div>
+            </div>
+        </div>        
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light btn-sm" (click)="bsModalRef.hide()">Close</button>
+    <button type="submit" class="btn btn-warning btn-sm" [disabled]='!productForm.valid' (click)="productAction()">{{mode | titlecase }}</button>
+</div>

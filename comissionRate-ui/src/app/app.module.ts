@@ -20,6 +20,7 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { OrderModalComponent } from './customers/order-modal/order-modal.component';
 import { ProductsComponent } from './products/products.component';
+import { ProductModalComponent } from './products/product-modal/product-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ProductsComponent } from './products/products.component';
     CustomerModalComponent,
     TextInputComponent,
     OrderModalComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Distribution } from './../_models/distribution';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Company } from '../_models/params/company';
 import { ProductParams } from '../_models/params/productParams';
@@ -10,6 +10,7 @@ import { CompanyService } from '../_services/company.service';
 import { DistributionService } from '../_services/distribution.service';
 import { ProductService } from '../_services/product.service';
 import { Pagination } from '../_models/pagination';
+import { ProductModalComponent } from './product-modal/product-modal.component';
 
 @Component({
   selector: 'app-products',
@@ -26,6 +27,7 @@ export class ProductsComponent implements OnInit {
   public prdOrderByArray: string[] = ['name','location','code'];
   prdParams!: ProductParams;
   pagination!: Pagination;
+  bsModalRef!: BsModalRef;
 
   constructor(private productService: ProductService, private companyService: CompanyService, private disService: DistributionService,
     private modalService: BsModalService, private tostr: ToastrService, private formBuilder: FormBuilder, ) { }
@@ -107,6 +109,18 @@ export class ProductsComponent implements OnInit {
 
   createProduct() {
 
+    let product : Partial<Product> = { };
+    const config = {
+      class: 'modal-dialog-center',
+      initialState: { 
+        mode: 'Add',
+        companies: this.companies,
+        product: product
+      }
+    };
+
+    this.bsModalRef = this.modalService.show(ProductModalComponent, config);  
+
   }
 
   editProduct(product: Product) {
@@ -114,7 +128,6 @@ export class ProductsComponent implements OnInit {
   }
 
   applyFilter() {
-    console.log(this.prdForm.value);
     this.prdParams = this.productService.getProductParams();
     this.prdParams.companyId = this.stringIsNullOrEmpty(this.prdForm.value.company) ? 0 : this.prdForm.value.company;
     this.prdParams.distributionId = this.stringIsNullOrEmpty(this.prdForm.value.distribution) ? 0 : this.prdForm.value.distribution;
@@ -125,11 +138,13 @@ export class ProductsComponent implements OnInit {
   }
 
   resetFilter() {
-
+    this.prdParams = this.productService.resetProductParams();
+    this.loadProducts();
+    this.initializeForm();
   }
 
   stringIsNullOrEmpty(value: string): boolean {
-    if(value === null || value === undefined || value === '' || value.includes('Select'))
+    if(value === null || value === undefined || value === '')
       return true;
 
     return false;

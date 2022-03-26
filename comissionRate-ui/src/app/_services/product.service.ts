@@ -22,7 +22,6 @@ export class ProductService {
     params = params.append('companyId', productParams.companyId);
     params = params.append('distributionId', productParams.distributionId);
     params = params.append('orderBy', productParams.orderBy);
-
     return getPaginationResult<Partial<Product[]>>(this.baseUrl + 'products', params, this.http);
   }
 
